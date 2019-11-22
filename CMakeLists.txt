@@ -9,8 +9,8 @@ set(INC_DIR ${CMAKE_SOURCE_DIR}/include)
 
 # set sources
 set(PROJECT_SOURCES
-        ${SRC_DIR}/main.cpp
         ${SRC_DIR}/glad.c
+        ${SRC_DIR}/main.cpp
         )
 
 # glfw
