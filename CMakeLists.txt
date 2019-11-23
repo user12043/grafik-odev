@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(glAssigment)
-set(PROJECT_EXECUTABLE glAssigment)
+project(GL_assigment)
+set(PROJECT_EXECUTABLE GL_assigment)
 set(CMAKE_CXX_STANDARD 17)
 
 # src and include dir
@@ -11,6 +11,7 @@ set(INC_DIR ${CMAKE_SOURCE_DIR}/include)
 set(PROJECT_SOURCES
         ${SRC_DIR}/glad.c
         ${SRC_DIR}/main.cpp
+        ${SRC_DIR}/shader_program.cpp include/shader_program.h
         )
 
 # glfw
