@@ -75,3 +75,19 @@ void ShaderProgram::createAndAttachShader(const char *fileName, GLuint shaderTyp
     glAttachShader(programId, shaderId);
     glDeleteShader(shaderId);
 }
+
+GLuint ShaderProgram::addVariable(const GLchar *varName) {
+    return glGetUniformLocation(programId, varName);
+}
+
+void ShaderProgram::setFloatVal(const GLchar *varName, GLfloat value) {
+    glUniform1f(variables[varName], value);
+}
+
+void ShaderProgram::setVec3Val(const GLchar *varName, const vec3 &value) {
+    glUniform3f(variables[varName], value.x, value.y, value.z);
+}
+
+void ShaderProgram::setVec4Val(const GLchar *varName, const vec4 &value) {
+    glUniform4f(variables[varName], value.r, value.g, value.b, value.a);
+}

@@ -11,7 +11,8 @@ set(INC_DIR ${CMAKE_SOURCE_DIR}/include)
 set(PROJECT_SOURCES
         ${SRC_DIR}/glad.c
         ${SRC_DIR}/main.cpp
-        ${SRC_DIR}/shader_program.cpp include/shader_program.h
+        ${SRC_DIR}/shader_program.cpp
+        ${SRC_DIR}/drawing.cpp
         )
 
 # glfw
