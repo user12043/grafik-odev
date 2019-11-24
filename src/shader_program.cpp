@@ -39,7 +39,7 @@ void ShaderProgram::link() {
     glLinkProgram(programId);
     int isLinked;
     char log[512];
-    glGetShaderiv(programId, GL_LINK_STATUS, &isLinked);
+    glGetProgramiv(programId, GL_LINK_STATUS, &isLinked);
 
     if (!isLinked) {
         glGetProgramInfoLog(programId, 512, nullptr, log);
@@ -70,14 +70,16 @@ void ShaderProgram::createAndAttachShader(const char *fileName, GLuint shaderTyp
             default:
                 break;
         }
-        std::cout << "Shader Type:" << strType << std::endl << log << std::endl;
+        std::cerr << "Shader Type:" << strType << std::endl << log << std::endl;
     }
     glAttachShader(programId, shaderId);
     glDeleteShader(shaderId);
 }
 
 GLuint ShaderProgram::addVariable(const GLchar *varName) {
-    return glGetUniformLocation(programId, varName);
+    GLuint varId = glGetUniformLocation(programId, varName);
+    variables[varName] = varId;
+    return varId;
 }
 
 void ShaderProgram::setFloatVal(const GLchar *varName, GLfloat value) {
