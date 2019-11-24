@@ -93,3 +93,7 @@ void ShaderProgram::setVec3Val(const GLchar *varName, const vec3 &value) {
 void ShaderProgram::setVec4Val(const GLchar *varName, const vec4 &value) {
     glUniform4f(variables[varName], value.r, value.g, value.b, value.a);
 }
+
+void ShaderProgram::setMat3Val(const GLchar *varName, const mat3 *value) {
+    glUniformMatrix3fv(variables[varName], 1, GL_FALSE, reinterpret_cast<const GLfloat *>(value));
+}

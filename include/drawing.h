@@ -13,7 +13,7 @@
 #include "shader_program.h"
 
 #define DRAW_COLOR_VAR "drawColor"
-#define TRANSFORM_VECTOR_VAR "moveVector"
+#define TRANSFORM_VECTOR_VAR "transformVector"
 #define CIRCLE_DETAIL 12
 
 using std::vector;
@@ -21,6 +21,10 @@ using glm::vec3;
 using glm::vec4;
 
 extern GLFWwindow *DEFAULT_WINDOW;
+
+void drawStart();
+
+void drawEnd();
 
 void initializeDrawing();
 
@@ -33,5 +37,15 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius);
 void setForegroundColor(vec4 rgba);
 
 void resetColor();
+
+void setTranslation(GLfloat x, GLfloat y);
+
+void setRotation(GLfloat degree);
+
+void setScale(GLfloat scaleX, GLfloat scaleY);
+
+void resetTransform();
+
+void setAutoResetTransform(bool val);
 
 #endif //GL_ASSIGMENT_DRAWING_H

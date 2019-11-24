@@ -10,11 +10,13 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <map>
+#include <glm/mat3x3.hpp>
 
 using std::string;
 using std::map;
 using glm::vec3;
 using glm::vec4;
+using glm::mat3;
 
 class ShaderProgram {
 private:
@@ -42,6 +44,8 @@ public:
     void setVec3Val(const GLchar *varName, const vec3 &value);
 
     void setVec4Val(const GLchar *varName, const vec4 &value);
+
+    void setMat3Val(const GLchar *varName, const mat3 *value);
 };
 
 #endif //GL_ASSIGMENT_SHADER_PROGRAM_H

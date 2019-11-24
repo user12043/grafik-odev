@@ -6,15 +6,25 @@
 #include <cstdlib>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <glm/gtx/matrix_transform_2d.hpp>
 #include "drawing.h"
 #include "shader_program.h"
 
 using std::cout;
+using glm::vec2;
+using glm::mat3;
+using glm::translate;
+using glm::rotate;
+using glm::scale;
 
 GLFWwindow *DEFAULT_WINDOW;
 static vec4 DEFAULT_COLOR;
 static vec4 DRAW_COLOR;
 static ShaderProgram *program;
+static bool autoResetTransform = true;
+static vec2 translateVal;
+static GLfloat rotatingDegree;
+static vec2 scaleVal;
 
 void clearBuffer() {
     glClearColor(1.0f,
@@ -25,9 +35,20 @@ void clearBuffer() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void drawStart() {
+    clearBuffer();
+}
+
 void drawEnd() {
     glfwSwapBuffers(DEFAULT_WINDOW);
     glfwPollEvents();
+}
+
+void updateTransform() {
+    mat3 translateMatrix = translate(mat3(1), translateVal);
+    mat3 rotateMatrix = rotate(translateMatrix, glm::radians(rotatingDegree));
+    mat3 transformMatrix = scale(rotateMatrix, scaleVal);
+    program->setMat3Val(TRANSFORM_VECTOR_VAR, &transformMatrix);
 }
 
 void initializeWindow() {
@@ -77,9 +98,6 @@ void initializeGl() {
             DEFAULT_COLOR.a)
     );
 
-    // set default move to 0
-    program->setVec3Val(TRANSFORM_VECTOR_VAR, vec3(0.0f, 0.0f, 0.0f));
-
     GLuint vertexBufferObject;
     GLuint vertexArrayObject;
     GLuint indexBufferObject;
@@ -95,9 +113,9 @@ void initializeGl() {
 
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
     glEnableVertexAttribArray(0);
+
+    resetTransform();
 }
 
 void initializeDrawing() {
@@ -106,27 +124,27 @@ void initializeDrawing() {
 }
 
 void drawTriangle(GLfloat *vertices, int count) {
-    clearBuffer();
-    program->setVec3Val(TRANSFORM_VECTOR_VAR, vec3(0.0f, 0.0f, 0.0f));
     glBufferData(GL_ARRAY_BUFFER, count * 36, vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, count * 3);
-    drawEnd();
+    if (autoResetTransform) {
+        resetTransform();
+    }
 }
 
 
 void drawTriangle(const vector<vec3> &vertices) {
-    clearBuffer();
-    program->setVec3Val(TRANSFORM_VECTOR_VAR, vec3(0.0f, 0.0f, 0.0f));
     glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-    drawEnd();
+    if (autoResetTransform) {
+        resetTransform();
+    }
 }
 
 void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
-    clearBuffer();
+    setTranslation(centerX, centerY);
     int verticesNumber = 4 * CIRCLE_DETAIL;
     int trianglesNumber = verticesNumber - 2;
     GLfloat unitAngle = 360.0f / (GLfloat) verticesNumber;
@@ -151,13 +169,12 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
         indices.emplace_back(a + 2);
     }
 
-    // set move position
-    program->setVec3Val(TRANSFORM_VECTOR_VAR, vec3(centerX, centerY, 0.0f));
-
     glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
-    drawEnd();
+    if (autoResetTransform) {
+        resetTransform();
+    }
 }
 
 void setForegroundColor(vec4 rgba) {
@@ -167,4 +184,30 @@ void setForegroundColor(vec4 rgba) {
 
 void resetColor() {
     program->setVec4Val(DRAW_COLOR_VAR, DEFAULT_COLOR);
+}
+
+void setTranslation(GLfloat x, GLfloat y) {
+    translateVal = vec2(x, y);
+    updateTransform();
+}
+
+void setRotation(GLfloat degree) {
+    rotatingDegree = degree;
+    updateTransform();
+}
+
+void setScale(GLfloat scaleX, GLfloat scaleY) {
+    scaleVal = vec2(scaleX, scaleY);
+    updateTransform();
+}
+
+void resetTransform() {
+    translateVal = vec2(-0.5f, 0.5f);
+    rotatingDegree = 0.0f;
+    scaleVal = vec2(1.0f, 1.0f);
+    updateTransform();
+}
+
+void setAutoResetTransform(bool val) {
+    autoResetTransform = val;
 }
