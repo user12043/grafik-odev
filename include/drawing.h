@@ -17,8 +17,14 @@
 #define CIRCLE_DETAIL 12
 
 using std::vector;
+using glm::vec2;
 using glm::vec3;
 using glm::vec4;
+
+struct Vertex {
+    vec3 position;
+    vec2 texture;
+};
 
 extern GLFWwindow *DEFAULT_WINDOW;
 

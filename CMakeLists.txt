@@ -13,6 +13,15 @@ set(PROJECT_SOURCES
         ${SRC_DIR}/main.cpp
         ${SRC_DIR}/shader_program.cpp
         ${SRC_DIR}/drawing.cpp
+        ${SRC_DIR}/SnakeCell.cpp
+        ${SRC_DIR}/Snake.cpp
+        )
+
+# set headers
+set(PROJECT_HEADERS
+        ${INC_DIR}/Direction.h
+        ${INC_DIR}/SnakeCell.h
+        ${INC_DIR}/Snake.h
         )
 
 # glfw

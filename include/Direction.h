@@ -1,0 +1,15 @@
+//
+// Created by user12043 on 26.11.2019.
+//
+
+#ifndef GL_ASSIGMENT_DIRECTION_H
+#define GL_ASSIGMENT_DIRECTION_H
+
+enum Direction {
+    DIRECTION_RIGHT,
+    DIRECTION_LEFT,
+    DIRECTION_UP,
+    DIRECTION_DOWN
+};
+
+#endif //GL_ASSIGMENT_DIRECTION_H
