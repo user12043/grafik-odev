@@ -126,7 +126,6 @@ void initializeDrawing() {
 void drawTriangle(GLfloat *vertices, int count) {
     glBufferData(GL_ARRAY_BUFFER, count * 36, vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
-    glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, count * 3);
     if (autoResetTransform) {
         resetTransform();
@@ -136,7 +135,6 @@ void drawTriangle(GLfloat *vertices, int count) {
 
 void drawTriangle(const vector<vec3> &vertices) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     if (autoResetTransform) {
         resetTransform();
@@ -157,7 +155,7 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
         const GLfloat currentAngleRadian = glm::radians(currentAngle);
         nexPosition.x = radius * glm::cos(currentAngleRadian);
         nexPosition.y = radius * glm::sin(currentAngleRadian);
-        nexPosition.z = 0.0f;
+        nexPosition.z = 1.0f;
         vertices.emplace_back(nexPosition);
     }
 
@@ -202,7 +200,7 @@ void setScale(GLfloat scaleX, GLfloat scaleY) {
 }
 
 void resetTransform() {
-    translateVal = vec2(-0.5f, 0.5f);
+    translateVal = vec2(-0.0f, 0.0f);
     rotatingDegree = 0.0f;
     scaleVal = vec2(1.0f, 1.0f);
     updateTransform();
