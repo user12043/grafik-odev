@@ -5,10 +5,10 @@
 #ifndef GL_ASSIGMENT_DRAWING_H
 #define GL_ASSIGMENT_DRAWING_H
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
-#include <glad/glad.h>
 #include <vector>
 #include "shader_program.h"
 
@@ -40,7 +40,7 @@ void drawTriangle(const vector<vec3> &vertices);
 
 void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius);
 
-void setForegroundColor(vec4 rgba);
+void setForegroundColor(float r, float g, float b, float a);
 
 void resetColor();
 

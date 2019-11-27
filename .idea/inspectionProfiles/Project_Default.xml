@@ -80,10 +80,10 @@
       <scope name="codes" level="WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="OCInconsistentNaming" enabled="true" level="WEAK WARNING" enabled_by_default="true">
-      <scope name="codes" level="WEAK WARNING" enabled="false" />
+      <scope name="codes" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="OCLoopDoesntUseConditionVariable" enabled="true" level="WARNING" enabled_by_default="true">
-      <scope name="codes" level="WARNING" enabled="true" />
+      <scope name="codes" level="WARNING" enabled="false" />
     </inspection_tool>
     <inspection_tool class="OCSimplify" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="codes" level="WARNING" enabled="true" />

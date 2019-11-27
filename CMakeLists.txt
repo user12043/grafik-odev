@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
 
 # set headers
 set(PROJECT_HEADERS
+        ${INC_DIR}/drawing.h
         ${INC_DIR}/Direction.h
         ${INC_DIR}/SnakeCell.h
         ${INC_DIR}/Snake.h

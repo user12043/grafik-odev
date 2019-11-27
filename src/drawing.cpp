@@ -175,7 +175,8 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
     }
 }
 
-void setForegroundColor(vec4 rgba) {
+void setForegroundColor(float r, float g, float b, float a) {
+    vec4 rgba(r, g, b, a);
     program->setVec4Val(DRAW_COLOR_VAR, rgba);
     DRAW_COLOR = rgba;
 }

@@ -16,15 +16,20 @@ using std::vector;
 class Snake {
 private:
     vector<SnakeCell *> cells;
-    u_int length;
     Direction direction;
 public:
     Snake();
+
+    void step();
 
     [[nodiscard]]
     Direction getDirection() const;
 
     void setDirection(Direction dir);
+
+    void draw();
+
+    void addCell();
 };
 
 
