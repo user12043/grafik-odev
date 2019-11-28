@@ -10,8 +10,8 @@
 #include <glm/vec2.hpp>
 #include "Direction.h"
 
-#define CELL_RADIUS 0.1
-#define DEFAULT_SPEED 0.1
+#define CELL_RADIUS 0.1f
+#define STEP_SIZE 0.2f
 
 using glm::vec2;
 
@@ -22,8 +22,6 @@ private:
     u_int textureId;
     float positionX;
     float positionY;
-    float stepSize;
-    float speed;
 public:
     SnakeCell(u_int order, Direction direction, u_int textureId, float positionX, float positionY);
 

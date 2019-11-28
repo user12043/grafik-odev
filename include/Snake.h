@@ -11,12 +11,15 @@
 #include "Direction.h"
 #include "SnakeCell.h"
 
+#define DEFAULT_SPEED 1.0f
+
 using std::vector;
 
 class Snake {
 private:
     vector<SnakeCell *> cells;
     Direction direction;
+    float speed;
 public:
     Snake();
 
