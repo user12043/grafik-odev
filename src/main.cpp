@@ -1,3 +1,9 @@
+
+/**
+ * Muaz KARATAŞ - b161210039
+ * Erkam BAYINDIR - b081210006
+ */
+
 #include <iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>

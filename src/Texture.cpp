@@ -2,6 +2,11 @@
 // Created by user12043 on 30.11.2019.
 //
 
+/**
+ * Muaz KARATAŞ - b161210039
+ * Erkam BAYINDIR - b081210006
+ */
+
 #include "Texture.h"
 // enable stb image
 #define STB_IMAGE_IMPLEMENTATION

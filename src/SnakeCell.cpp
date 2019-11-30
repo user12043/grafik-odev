@@ -2,6 +2,11 @@
 // Created by user12043 on 26.11.2019.
 //
 
+/**
+ * Muaz KARATAŞ - b161210039
+ * Erkam BAYINDIR - b081210006
+ */
+
 #include "drawing.h"
 #include "SnakeCell.h"
 

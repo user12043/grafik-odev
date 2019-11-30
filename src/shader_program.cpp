@@ -2,6 +2,11 @@
 // Created by user12043 on 22.11.2019.
 //
 
+/**
+ * Muaz KARATAŞ - b161210039
+ * Erkam BAYINDIR - b081210006
+ */
+
 #include "shader_program.h"
 #include <iostream>
 #include <fstream>
