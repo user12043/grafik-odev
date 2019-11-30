@@ -22,6 +22,7 @@ private:
     u_int textureId;
     float positionX;
     float positionY;
+    float rotateAngle;
 public:
     SnakeCell(u_int order, Direction direction, u_int textureId, float positionX, float positionY);
 
