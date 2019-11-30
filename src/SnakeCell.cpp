@@ -11,7 +11,9 @@ SnakeCell::SnakeCell(u_int order, Direction direction, u_int textureId, float po
 }
 
 void SnakeCell::draw() {
-    setRotation(rotateAngle++);
+    Texture::enableTexture(textureId);
+    setRotation(rotateAngle);
+    if (textureId % 2 == 0) (rotateAngle++); else (rotateAngle--);
     drawCircle(positionX, positionY, (order == 0) ? (CELL_RADIUS + 0.03f) : (CELL_RADIUS));
 }
 

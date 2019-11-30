@@ -11,9 +11,22 @@
 #include "Direction.h"
 #include "SnakeCell.h"
 
-#define DEFAULT_SPEED 1.0f
+#define DEFAULT_SPEED 1.5f
+#define TEXTURES_FOLDER "./images/"
 
 using std::vector;
+
+static const string TEXTURE_PATHS[]{
+        string(TEXTURES_FOLDER) + "Earth.jpg",
+        string(TEXTURES_FOLDER) + "Jupiter.jpg",
+        string(TEXTURES_FOLDER) + "Mars.jpg",
+        string(TEXTURES_FOLDER) + "Mercury.jpg",
+        string(TEXTURES_FOLDER) + "Neptune.jpg",
+        string(TEXTURES_FOLDER) + "PoorPluto.jpg",
+        string(TEXTURES_FOLDER) + "Sun.jpg",
+        string(TEXTURES_FOLDER) + "Uranus.jpg",
+        string(TEXTURES_FOLDER) + "Venus.jpg"
+};
 
 class Snake {
 private:

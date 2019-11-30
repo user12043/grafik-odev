@@ -3,9 +3,18 @@
 //
 
 #include <ctime>
+#include <cstdlib>
 #include "Snake.h"
 
 clock_t lastStepTime = 0;
+
+u_int pickTexture(int index) {
+    if (index == -1) {
+        int length = (int) TEXTURE_PATHS->length() / 2;
+        index = (int) (rand() % length);
+    }
+    return Texture::getInstance()->getTexture(TEXTURE_PATHS[index]);
+}
 
 Snake::Snake() {
     Snake::direction = DIRECTION_DOWN;
@@ -48,7 +57,7 @@ void Snake::draw() {
 
 void Snake::addCell() {
     if (cells.empty()) {
-        cells.emplace_back(new SnakeCell(0, DIRECTION_DOWN, 0, 0.0f, 0.0f));
+        cells.emplace_back(new SnakeCell(0, DIRECTION_DOWN, pickTexture(6), 0.0f, 0.0f));
         return;
     }
     vec2 prevPosition = cells.back()->getPosition();
@@ -71,5 +80,6 @@ void Snake::addCell() {
             newPosition.y = prevPosition.y;
             break;
     }
-    cells.emplace_back(new SnakeCell(cells.size(), cells.back()->getDirection(), 0, newPosition.x, newPosition.y));
+    cells.emplace_back(
+            new SnakeCell(cells.size(), cells.back()->getDirection(), pickTexture(-1), newPosition.x, newPosition.y));
 }

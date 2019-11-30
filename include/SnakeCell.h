@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <glm/vec2.hpp>
 #include "Direction.h"
+#include "Texture.h"
 
 #define CELL_RADIUS 0.1f
 #define STEP_SIZE 0.2f

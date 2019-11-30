@@ -34,9 +34,9 @@ void drawEnd();
 
 void initializeDrawing();
 
-void drawTriangle(GLfloat *vertices, int count);
+void drawTriangle(Vertex *vertices, int count);
 
-void drawTriangle(const vector<vec3> &vertices);
+void drawTriangle(const vector<Vertex> &vertices);
 
 void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius);
 

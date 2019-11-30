@@ -112,8 +112,11 @@ void initializeGl() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
 
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, nullptr);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (void *) (sizeof(float) * 3));
+    glEnableVertexAttribArray(1);
 
     resetTransform();
 }
@@ -123,17 +126,16 @@ void initializeDrawing() {
     initializeGl();
 }
 
-void drawTriangle(GLfloat *vertices, int count) {
-    glBufferData(GL_ARRAY_BUFFER, count * 36, vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
+void drawTriangle(Vertex *vertices, int count) {
+    glBufferData(GL_ARRAY_BUFFER, count * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 5, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, nullptr);
     glDrawArrays(GL_TRIANGLES, 0, count * 3);
     if (autoResetTransform) {
         resetTransform();
     }
 }
 
-
-void drawTriangle(const vector<vec3> &vertices) {
+void drawTriangle(const vector<Vertex> &vertices) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     if (autoResetTransform) {
@@ -147,16 +149,19 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
     int trianglesNumber = verticesNumber - 2;
     GLfloat unitAngle = 360.0f / (GLfloat) verticesNumber;
 
-    vector<vec3> vertices;
+    vector<Vertex> vertices;
     // place vertices
     for (int a = 0; a < verticesNumber; ++a) {
-        vec3 nexPosition;
+        Vertex next{};
         GLfloat currentAngle = unitAngle * (GLfloat) a;
         const GLfloat currentAngleRadian = glm::radians(currentAngle);
-        nexPosition.x = radius * glm::cos(currentAngleRadian);
-        nexPosition.y = radius * glm::sin(currentAngleRadian);
-        nexPosition.z = 1.0f;
-        vertices.emplace_back(nexPosition);
+        GLfloat positionX = radius * glm::cos(currentAngleRadian);
+        GLfloat textureX = 0.5f * glm::cos(currentAngleRadian) + 0.5f;
+        GLfloat positionY = radius * glm::sin(currentAngleRadian);
+        GLfloat textureY = 0.5f * glm::sin(currentAngleRadian) + 0.5f;
+        next.position = vec3(positionX, positionY, 1.0f);
+        next.texture = vec2(textureX, textureY);
+        vertices.emplace_back(next);
     }
 
     // place indices
@@ -167,7 +172,7 @@ void drawCircle(GLfloat centerX, GLfloat centerY, GLfloat radius) {
         indices.emplace_back(a + 2);
     }
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     if (autoResetTransform) {
